@@ -1,0 +1,28 @@
+2020.4.28
+
+build.sh用于构建uboot景象
+clean.sh用于清除
+mkuboot.sh 则用于将uboot镜像烧录到sd卡中
+
+mkuboot.sh:
+    使用cat命令 生成最终的uboot镜像 u-boot-iTOP-4412.bin
+    
+    cat E4412_N.bl1.bin itop4412-spl.bin env.bin u-boot.bin > u-boot-iTOP-4412.bin
+    
+    u-boot-iTOP-4412.bin由几部分组成
+
+1、E4412_N.bl1.bin -》
+    BL1，由三星官方提供，迅为也给了相应的工具可以自己制作，在讯为网盘的uboot文件夹里CodeSign4SecureBoot_SCP，
+    BL1主要对后面的镜像进行校验，校验成功才能正确的启动。
+
+2、itop4412-spl.bin -》
+    BL2，UBOOT的SPL部分，大多数开发版并不是上电就初始化好DDR内存的，所以程序一开始都加载到内存很小的内部RAM中。
+    UBOOT设计了SPL部分，SPL足够小，可以很容易的运行在内部RAM中，甚至可以直接去启动linux内核，
+    这部分功能可以简单的代替UBOOT的功能，负责初始化板子的基本外设，然后将完整的UBOOT拷贝到DDR中运行。
+    这部分是uboot.bin中裁出的16k（不完全严谨，SPL的编译过程和UBOOT不一样）。
+
+3、env.bin -》
+    8K的占位文件。不知道为什么要加这个
+
+4、u-boot.bin -》
+    uboot完整的镜像
