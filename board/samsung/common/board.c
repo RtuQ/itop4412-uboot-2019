@@ -101,7 +101,18 @@ int dram_init(void)
 	unsigned long addr;
 
 	for (i = 0; i < CONFIG_NR_DRAM_BANKS; i++) {
-		addr = CONFIG_SYS_SDRAM_BASE + (i * SDRAM_BANK_SIZE);
+		#ifdef PHYS_SDRAM_3
+			if(i >= 2){
+				addr = PHYS_SDRAM_3+((i-2) * SDRAM_BANK_SIZE);
+			}
+			else
+			{
+				addr = CONFIG_SYS_SDRAM_BASE + (i * SDRAM_BANK_SIZE);
+			}
+			
+		#else
+				addr = CONFIG_SYS_SDRAM_BASE + (i * SDRAM_BANK_SIZE);
+		#endif
 		gd->ram_size += get_ram_size((long *)addr, SDRAM_BANK_SIZE);
 	}
 	return 0;

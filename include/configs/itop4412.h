@@ -20,9 +20,10 @@
 #define CONFIG_SYS_DCACHE_OFF       1
 
 /* itop-4412 has 4 bank of DRAM */
-#define CONFIG_NR_DRAM_BANKS        4
+#define CONFIG_NR_DRAM_BANKS        8
 #define CONFIG_SYS_SDRAM_BASE       0x40000000
 #define PHYS_SDRAM_1            CONFIG_SYS_SDRAM_BASE
+// #define PHYS_SDRAM_3            0xA0000000
 #define SDRAM_BANK_SIZE         (256<< 20) /* 256 MB */
 
 /* memtest works on */
@@ -97,9 +98,9 @@
 #define CONFIG_MIU_2BIT_21_7_INTERLEAVED
 
 #define CONFIG_SYS_MMC_ENV_DEV      0
-#define CONFIG_ENV_SIZE         (8 << 10)   /* 16 KB */
+#define CONFIG_ENV_SIZE         (16<< 10)   /* 16 KB */
 #define RESERVE_BLOCK_SIZE      (512)
-#define BL1_SIZE            (8 << 10) /*8 K reserved for BL1*/
+#define BL1_SIZE            (8 << 10) /*8K reserved for BL1*/
 #define BL2_SIZE            (16 << 10) /*16 K reserved for BL2 */
 #define CONFIG_ENV_OFFSET       (RESERVE_BLOCK_SIZE + BL1_SIZE + BL2_SIZE)
 
